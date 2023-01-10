@@ -5,19 +5,15 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class Cadet {
     @MongoId
     private String id;
-    private String rank;
+    private String rankID;
     private String name;
     private String surname;
     private boolean presence;
 
-    public Cadet(String name, String surname) {
+    public Cadet(String name, String surname, String rankID) {
         this.name = name;
         this.surname = surname;
-        this.rank = "szer. ";
+        this.rankID = rankID;
         this.presence = true;
     }
-    //    public Cadet(){
-//        this.rank = "szer. ";
-//        this.presence = true;
-//    }
 }

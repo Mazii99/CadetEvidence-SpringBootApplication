@@ -34,20 +34,28 @@ public class CadetController {
 
     @GetMapping("{id}")
     public ResponseEntity<CadetResponse> getCadetByIdVar(@PathVariable String id) {
-        Optional<CadetResponse> cadetOptional = cadetService.getCadetById(id);
-        if (cadetOptional.isEmpty()) {
+        try {
+            CadetResponse cadetOptional = cadetService.getCadetById(id);
+            return new ResponseEntity<>(cadetOptional, HttpStatus.OK);
+        }
+        catch(EntityNotFound e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(cadetOptional.get(), HttpStatus.OK);
+        /*if (cadetOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }*/
+
     }
 
     @GetMapping("{id}/surname")
     public ResponseEntity<String> getCadetSurnameById(@PathVariable String id) {
-        Optional<CadetResponse> cadetOptional = cadetService.getCadetById(id);
-        if (cadetOptional.isEmpty()) {
+        try {
+            CadetResponse cadetOptional = cadetService.getCadetById(id);
+            return new ResponseEntity<>(cadetOptional.getSurname(), HttpStatus.OK);
+        }
+        catch(EntityNotFound e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(cadetOptional.get().getSurname(), HttpStatus.OK);
     }
 
     @PostMapping()
@@ -56,15 +64,23 @@ public class CadetController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<CadetResponse> updateCadet(@PathVariable String id, @RequestParam(required = false) String name, @RequestParam(required = false) String surname) {
+    public ResponseEntity<CadetResponse> updateCadet(@PathVariable String id) {
         try {
             return new ResponseEntity<>(cadetService.update(id), HttpStatus.OK);
         } catch (EntityNotFound e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @PutMapping("{id}/presence")
+    public ResponseEntity<CadetResponse> switchCadetPresence(@PathVariable String id) {
+        try {
+            return new ResponseEntity<>(cadetService.switchPresence(id), HttpStatus.OK);
+        } catch (EntityNotFound e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @DeleteMapping("{id}")
-    public ResponseEntity<CadetResponse> deleteCadet(@PathVariable String id){
+    public ResponseEntity<CadetResponse> deleteCadet(@PathVariable String id) {
         try {
             return new ResponseEntity<>(cadetService.delete(id), HttpStatus.OK);
         } catch (EntityNotFound e) {

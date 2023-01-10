@@ -1,8 +1,10 @@
 package wat.edu.pl.pchorevidence.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import wat.edu.pl.pchorevidence.entity.Rank;
+import wat.edu.pl.pchorevidence.repository.RankRepository;
+
 @Data
-@AllArgsConstructor
 public class CadetResponse {
     private String id;
     private String rank;
@@ -10,24 +12,14 @@ public class CadetResponse {
     private String surname;
     private boolean presence;
 
-    public CadetResponse(String id,String rank, String name, String surname) {
-
+    public CadetResponse(String id, Rank rank, String name, String surname, boolean presence) {
             this.id = id;
-            this.rank = rank;
-            this.name = name+" ";
+            this.rank = rank.getTitle();
+            this.name = name;
             this.surname = surname;
-            this.presence = true;
+            this.presence = presence;
 
 
     }
-    public CadetResponse(String id, String name, String surname) {
 
-            this.id = id;
-            this.rank = "szer. ";
-            this.name = name+" ";
-            this.surname = surname;
-            this.presence = true;
-
-
-    }
 }
