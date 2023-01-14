@@ -23,8 +23,18 @@ public class ScriptController {
     }
 
     @PutMapping()
-    public ResponseEntity<String> execScript(@RequestBody String script) {
-       //String script = """ """
+    public ResponseEntity<String> execScript() {
+        //@RequestBody String script powinno byc w nawiasie
+       String script = """
+                        var Cadet = Java.type('wat.edu.pl.pchorevidence.entity.Cadet');
+                        var Rank = Java.type('wat.edu.pl.pchorevidence.entity.Rank');
+                        
+                        var Set = Java.type('java.util.Set');
+
+                        var abackiCadet = new Cadet("Adam","Abacki","63bdb2e68a4e590d340ae26f");
+                        cadetRepository.save(abackiCadet).getId();
+                                """;
+
         return new ResponseEntity<>(scriptService.exec(script), HttpStatus.OK) ;
     }
 }

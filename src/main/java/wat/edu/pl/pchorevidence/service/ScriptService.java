@@ -25,8 +25,8 @@ public class ScriptService {
                 .allowAllAccess(true)
                 .build()) {
             var bindings = context.getBindings("js");
-            bindings.putMember("articleRepository", cadetRepository);
-            bindings.putMember("authorRepository", rankRepository);
+            bindings.putMember("cadetRepository", cadetRepository);
+            bindings.putMember("rankRepository", rankRepository);
             return context.eval("js", script).toString();
         } catch (PolyglotException e) {
             log.error("Error executing", e);
