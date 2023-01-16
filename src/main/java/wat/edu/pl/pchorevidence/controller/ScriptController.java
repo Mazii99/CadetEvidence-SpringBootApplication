@@ -24,7 +24,7 @@ public class ScriptController {
 
     @PutMapping()
     public ResponseEntity<String> execScript() {
-        //@RequestBody String script powinno byc w nawiasie
+        //@RequestBody String script
        String script = """
                         var Cadet = Java.type('wat.edu.pl.pchorevidence.entity.Cadet');
                         var Rank = Java.type('wat.edu.pl.pchorevidence.entity.Rank');

@@ -7,7 +7,5 @@ public class Rank {
     private String id;
     private String title;
 
-    /*public Rank(String title) {
-        this.title = title;
-    }*/
+
 }

@@ -15,7 +15,6 @@ public class CadetResponse {
 
     public CadetResponse(String id, Rank rank, String name, String surname, String email, boolean presence) {
             this.id = id;
-            //this.rank = rank.getTitle();
             this.rank = rank;
             this.name = name;
             this.surname = surname;

@@ -24,13 +24,10 @@ public class CadetService {
 
 
 
-    /*public CadetService(CadetRepository CadetRepository) {
-        this.cadetRepository = CadetRepository;
-    }*/
+
 
     public CadetResponse getCadetById(String id) throws EntityNotFound {
         Cadet cadet = cadetRepository.findById(id).orElseThrow(EntityNotFound::new);
-        //Rank rank = rankRepository.findById(cadet.getRankID()).orElseThrow(EntityNotFound::new);
         return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.getEmail() , cadet.isPresence());
     }
 
@@ -78,7 +75,7 @@ public class CadetService {
 
     public CadetResponse delete(String id) throws EntityNotFound {
         Cadet cadet = cadetRepository.findById(id).orElseThrow(EntityNotFound::new);
-        //Rank rank = rankRepository.findById(Cadet.getRankID()).orElseThrow(EntityNotFound::new);
+
         cadetRepository.deleteById(id);
         System.out.println("Usunięto z bazy: " + cadet.getName() + " " + cadet.getSurname());
         return new CadetResponse(cadet.getId(),  rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.getEmail(), cadet.isPresence());

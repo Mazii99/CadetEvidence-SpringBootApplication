@@ -15,7 +15,6 @@ public class RankMapper {
     }
 
     private void fillRankRequest(Rank rank, RankRequest rankRequest) {
-//        author.setRank(authorRequest.getRank());
         // empty for byte buddy
     }
 
@@ -26,7 +25,6 @@ public class RankMapper {
     }
 
     private void fillRank(RankResponse rankResponse, Rank rank) {
-        //authorResponse.setRank(author.getRank());
         // empty for byte buddy
     }
 

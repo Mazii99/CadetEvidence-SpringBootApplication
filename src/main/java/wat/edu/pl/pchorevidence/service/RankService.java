@@ -24,9 +24,6 @@ public class RankService {
         this.rankRepository = rankRepository;
         this.rankMapper = rankMapper;
     }
-    /*public CadetService(CadetRepository CadetRepository) {
-        this.cadetRepository = CadetRepository;
-    }*/
 
     public Optional<RankResponse> getRankById(String id) {
         return rankRepository.findById(id)

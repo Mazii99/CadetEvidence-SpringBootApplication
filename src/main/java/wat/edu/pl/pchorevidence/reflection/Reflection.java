@@ -34,7 +34,6 @@ public class Reflection {
 
     }
     public static void apply(String fieldName, String fieldType) {
-        System.out.println("123453");
         var ref = new Reflection();
         ref.applyEntity(fieldName, fieldType);
         ref.applyRequest(fieldName, fieldType);
@@ -43,7 +42,7 @@ public class Reflection {
     }
 
     private void applyRankMapper(String fieldName) {
-        //TypePool typePool = TypePool.Default.ofSystemLoader();
+        TypePool typePool = TypePool.Default.ofSystemLoader();
         ByteBuddy byteBuddy = new ByteBuddy();
         DynamicType.Builder<Object> builder = byteBuddy
                 .redefine(mapperDefinition,

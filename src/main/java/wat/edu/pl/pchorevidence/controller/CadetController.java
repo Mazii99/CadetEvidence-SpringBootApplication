@@ -41,9 +41,6 @@ public class CadetController {
         catch(EntityNotFound e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        /*if (cadetOptional.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }*/
 
     }
 
