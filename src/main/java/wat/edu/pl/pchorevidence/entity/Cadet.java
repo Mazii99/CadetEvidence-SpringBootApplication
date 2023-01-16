@@ -8,6 +8,8 @@ public class Cadet {
     private String rankID;
     private String name;
     private String surname;
+
+    private String email;
     private boolean presence;
 
     public Cadet(String name, String surname, String rankID) {

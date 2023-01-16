@@ -5,5 +5,7 @@ public class CadetRequest {
     private String rankID;
     private String name;
     private String surname;
+    private String email;
+
     private boolean presence;
 }

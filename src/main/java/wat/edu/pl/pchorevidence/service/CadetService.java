@@ -31,7 +31,7 @@ public class CadetService {
     public CadetResponse getCadetById(String id) throws EntityNotFound {
         Cadet cadet = cadetRepository.findById(id).orElseThrow(EntityNotFound::new);
         //Rank rank = rankRepository.findById(cadet.getRankID()).orElseThrow(EntityNotFound::new);
-        return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.isPresence());
+        return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.getEmail() , cadet.isPresence());
     }
 
     public CadetResponse save(CadetRequest CadetRequest) {
@@ -41,23 +41,20 @@ public class CadetService {
                 cadet
         );
         System.out.println(cadet);
-        return new CadetResponse(cadet.getId(),  rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.isPresence());
+        return new CadetResponse(cadet.getId(),  rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.getEmail() ,cadet.isPresence());
     }
 
     public List<CadetResponse> getAll() {
         return cadetRepository.findAll()
                 .stream()
-                .map(cadet -> new CadetResponse(cadet.getId(),  rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.isPresence()))
+                .map(cadet -> new CadetResponse(cadet.getId(),  rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.getEmail(), cadet.isPresence()))
                 .toList();
     }
     public CadetResponse switchPresence(String id) throws EntityNotFound{
         Cadet cadet = cadetRepository.findById(id).orElseThrow(EntityNotFound::new);
-        if(cadet.isPresence()){
-            cadet.setPresence(false);
-        }else{
-            cadet.setPresence(true);
-        }
-        return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(EntityNotFound::new), cadet.getName(), cadet.getSurname(), cadet.isPresence());
+        cadet.setPresence(!cadet.isPresence());
+        cadetRepository.save(cadet);
+        return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(EntityNotFound::new), cadet.getName(), cadet.getSurname(), cadet.getEmail(), cadet.isPresence());
     }
     public CadetResponse update(String id) throws EntityNotFound {
         Cadet cadet = cadetRepository.findById(id).orElseThrow(EntityNotFound::new);
@@ -76,7 +73,7 @@ public class CadetService {
             cadet.setRankID("63bdb2ea8a4e590d340ae270");
         }
         cadet = cadetRepository.save(cadet);
-        return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(EntityNotFound::new), cadet.getName(), cadet.getSurname(), cadet.isPresence());
+        return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(EntityNotFound::new), cadet.getName(), cadet.getSurname(), cadet.getEmail(), cadet.isPresence());
     }
 
     public CadetResponse delete(String id) throws EntityNotFound {
@@ -84,7 +81,7 @@ public class CadetService {
         //Rank rank = rankRepository.findById(Cadet.getRankID()).orElseThrow(EntityNotFound::new);
         cadetRepository.deleteById(id);
         System.out.println("Usunięto z bazy: " + cadet.getName() + " " + cadet.getSurname());
-        return new CadetResponse(cadet.getId(),  rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.isPresence());
+        return new CadetResponse(cadet.getId(),  rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.getEmail(), cadet.isPresence());
 
     }
 }

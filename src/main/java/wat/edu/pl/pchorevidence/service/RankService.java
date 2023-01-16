@@ -8,6 +8,7 @@ import wat.edu.pl.pchorevidence.dto.RankResponse;
 import wat.edu.pl.pchorevidence.entity.Rank;
 import wat.edu.pl.pchorevidence.exception.EntityNotFound;
 import wat.edu.pl.pchorevidence.repository.RankRepository;
+import wat.edu.pl.pchorevidence.mapper.RankMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,26 +17,30 @@ import java.util.Optional;
 public class RankService {
     @Autowired
     private RankRepository rankRepository;
+    private RankMapper rankMapper;
 
-
-
+    @Autowired
+    public RankService(RankRepository rankRepository, RankMapper rankMapper) {
+        this.rankRepository = rankRepository;
+        this.rankMapper = rankMapper;
+    }
     /*public CadetService(CadetRepository CadetRepository) {
         this.cadetRepository = CadetRepository;
     }*/
 
     public Optional<RankResponse> getRankById(String id) {
         return rankRepository.findById(id)
-                .map(cadet -> new RankResponse(cadet.getId(), cadet.getTitle()));
+                .map(rankMapper::map);
     }
 
-    public RankResponse save(RankRequest RankRequest) {
-        Rank Rank = new Rank(RankRequest.getTitle());
-        System.out.println(Rank);
-        Rank = rankRepository.save(
-                Rank
+    public RankResponse save(RankRequest rankRequest) {
+        Rank rank = rankMapper.map(rankRequest);
+        System.out.println(rank);
+        rank = rankRepository.save(
+                rank
         );
-        System.out.println(Rank);
-        return new RankResponse(Rank.getId(), Rank.getTitle());
+        System.out.println(rank);
+        return rankMapper.map(rank);
     }
 
     public List<RankResponse> getAll() {
@@ -46,10 +51,10 @@ public class RankService {
     }
 
     public RankResponse update(String id, String newTitle) throws EntityNotFound {
-        Rank Rank = rankRepository.findById(id).orElseThrow(EntityNotFound::new);
-        Rank.setTitle(newTitle);
-        Rank = rankRepository.save(Rank);
-        return new RankResponse(Rank.getId(), Rank.getTitle());
+        Rank rank = rankRepository.findById(id).orElseThrow(EntityNotFound::new);
+        rank.setTitle(newTitle);
+        rank = rankRepository.save(rank);
+        return rankMapper.map(rank);
     }
 
     public RankResponse delete(String id) throws EntityNotFound {

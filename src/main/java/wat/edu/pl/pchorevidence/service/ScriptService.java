@@ -27,6 +27,7 @@ public class ScriptService {
             var bindings = context.getBindings("js");
             bindings.putMember("cadetRepository", cadetRepository);
             bindings.putMember("rankRepository", rankRepository);
+            bindings.putMember("log",log);
             return context.eval("js", script).toString();
         } catch (PolyglotException e) {
             log.error("Error executing", e);

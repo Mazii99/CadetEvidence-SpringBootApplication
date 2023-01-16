@@ -28,13 +28,21 @@ public class ScriptController {
        String script = """
                         var Cadet = Java.type('wat.edu.pl.pchorevidence.entity.Cadet');
                         var Rank = Java.type('wat.edu.pl.pchorevidence.entity.Rank');
-                        
                         var Set = Java.type('java.util.Set');
-
-                        var abackiCadet = new Cadet("Adam","Abacki","63bdb2e68a4e590d340ae26f");
-                        cadetRepository.save(abackiCadet).getId();
+                        function email(){
+                        
+                        for(cadet of cadetRepository.findAll()){              
+                        var cadetName = cadet.getName();
+                        var cadetSurname = cadet.getSurname();
+                        var email = cadetName+'.'+cadetSurname+'@student.wat.edu.pl';
+                        cadet.setEmail(email);
+                        cadetRepository.save(cadet);
+                        }
+                        return cadetRepository.findAll();
+                        }
+                        email();
+                        
                                 """;
-
         return new ResponseEntity<>(scriptService.exec(script), HttpStatus.OK) ;
     }
 }
