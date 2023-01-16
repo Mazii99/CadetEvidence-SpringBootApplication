@@ -43,6 +43,21 @@ public class ScriptController {
                         email();
                         
                                 """;
+        /*String script = """
+                        var Cadet = Java.type('wat.edu.pl.pchorevidence.entity.Cadet');
+                        var Rank = Java.type('wat.edu.pl.pchorevidence.entity.Rank');
+                        var Set = Java.type('java.util.Set');
+                        function email(){
+                        
+                        for(rank of rankRepository.findAll()){              
+                        rank.setNavy("test");
+                        rankRepository.save(rank);
+                        }
+                        return rankRepository.findAll();
+                        }
+                        email();
+                        
+                                """;*/
         return new ResponseEntity<>(scriptService.exec(script), HttpStatus.OK) ;
     }
 }

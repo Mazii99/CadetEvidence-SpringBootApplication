@@ -60,8 +60,8 @@ public class Reflection {
                                 .invoke(getterEntity(fieldName))
                                 .onArgument(1)));
 
-        try (var unloadedAuthor = builder.make()) {
-            mapperDefinition =  unloadedAuthor.load(ClassLoader.getSystemClassLoader(), ClassLoadingStrategy.Default.INJECTION)
+        try (var unloadedRank = builder.make()) {
+            mapperDefinition =  unloadedRank.load(ClassLoader.getSystemClassLoader(), ClassLoadingStrategy.Default.INJECTION)
                     .getTypeDescription();
 
         } catch (IOException e) {
@@ -127,8 +127,8 @@ public class Reflection {
                         ClassFileLocator.ForClassLoader.ofSystemLoader())
                 .defineProperty(fieldName, typePool.describe(fieldType).resolve());
 
-        try (var unloadedAuthor = builder.make()) {
-            requestDefinition = unloadedAuthor.load(ClassLoader.getSystemClassLoader(), ClassLoadingStrategy.Default.INJECTION)
+        try (var unloadedRank = builder.make()) {
+            requestDefinition = unloadedRank.load(ClassLoader.getSystemClassLoader(), ClassLoadingStrategy.Default.INJECTION)
                     .getTypeDescription();
 
         } catch (IOException e) {

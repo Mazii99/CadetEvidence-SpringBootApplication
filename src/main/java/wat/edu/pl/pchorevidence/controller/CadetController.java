@@ -23,13 +23,15 @@ public class CadetController {
 
     @Autowired
     public CadetController(CadetService cadetService) {
+
         this.cadetService = cadetService;
     }
 
     @GetMapping()
     public ResponseEntity<List<CadetResponse>> getAllCadet() {
-        List<CadetResponse> cadetOptional = cadetService.getAll();
-        return new ResponseEntity<>(cadetOptional, HttpStatus.OK);
+            List<CadetResponse> cadetOptional = cadetService.getAll();
+            return new ResponseEntity<>(cadetOptional, HttpStatus.OK);
+
     }
 
     @GetMapping("{id}")
@@ -57,7 +59,8 @@ public class CadetController {
 
     @PostMapping()
     public ResponseEntity<String> createCadet(@RequestBody CadetRequest cadetRequest) {
-        return new ResponseEntity<>(cadetService.save(cadetRequest).getId(), HttpStatus.CREATED);
+            return new ResponseEntity<>(cadetService.save(cadetRequest).getId(), HttpStatus.CREATED);
+
     }
 
     @PutMapping("{id}")

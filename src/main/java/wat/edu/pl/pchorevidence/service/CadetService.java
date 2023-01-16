@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import wat.edu.pl.pchorevidence.dto.CadetRequest;
 import wat.edu.pl.pchorevidence.dto.CadetResponse;
 import wat.edu.pl.pchorevidence.entity.Cadet;
+import wat.edu.pl.pchorevidence.entity.Rank;
 import wat.edu.pl.pchorevidence.exception.EntityNotFound;
+import wat.edu.pl.pchorevidence.mapper.RankMapper;
 import wat.edu.pl.pchorevidence.repository.CadetRepository;
 import wat.edu.pl.pchorevidence.repository.RankRepository;
 
@@ -18,8 +20,10 @@ public class CadetService {
     private CadetRepository cadetRepository;
     private RankRepository rankRepository;
 
+
     public CadetService(RankRepository rankRepository) {
         this.rankRepository = rankRepository;
+
     }
 
 
@@ -28,7 +32,7 @@ public class CadetService {
 
     public CadetResponse getCadetById(String id) throws EntityNotFound {
         Cadet cadet = cadetRepository.findById(id).orElseThrow(EntityNotFound::new);
-        return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.getEmail() , cadet.isPresence());
+        return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(EntityNotFound::new), cadet.getName(), cadet.getSurname(), cadet.getEmail() , cadet.isPresence());
     }
 
     public CadetResponse save(CadetRequest CadetRequest) {
