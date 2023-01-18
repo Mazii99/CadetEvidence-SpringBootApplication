@@ -33,7 +33,7 @@ public class RankController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<RankResponse> getCadetByIdVar(@PathVariable String id) {
+    public ResponseEntity<RankResponse> getRankById(@PathVariable String id) {
         Optional<RankResponse> cadetOptional = rankService.getRankById(id);
         if (cadetOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -42,7 +42,7 @@ public class RankController {
     }
 
     @GetMapping("{id}/title")
-    public ResponseEntity<String> getRankSurnameById(@PathVariable String id) {
+    public ResponseEntity<String> getRankTitleById(@PathVariable String id) {
         Optional<RankResponse> rankOptional = rankService.getRankById(id);
         if (rankOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -56,7 +56,7 @@ public class RankController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<RankResponse> updateCadet(@PathVariable String id, @RequestParam String title) {
+    public ResponseEntity<RankResponse> updateRank(@PathVariable String id, @RequestParam String title) {
         try {
             return new ResponseEntity<>(rankService.update(id, title), HttpStatus.OK);
         } catch (EntityNotFound e) {
