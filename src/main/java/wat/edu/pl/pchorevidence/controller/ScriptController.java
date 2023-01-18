@@ -35,6 +35,7 @@ public class ScriptController {
                         var cadetName = cadet.getName();
                         var cadetSurname = cadet.getSurname();
                         var email = cadetName+'.'+cadetSurname+'@student.wat.edu.pl';
+                        log.info("Dodano email do bazy: "+email);
                         cadet.setEmail(email);
                         cadetRepository.save(cadet);
                         }
@@ -58,6 +59,8 @@ public class ScriptController {
                         email();
                         
                                 """;*/
+
         return new ResponseEntity<>(scriptService.exec(script), HttpStatus.OK) ;
     }
+
 }

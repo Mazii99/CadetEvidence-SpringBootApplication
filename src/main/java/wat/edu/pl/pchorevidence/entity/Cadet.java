@@ -12,6 +12,7 @@ public class Cadet {
     private String email;
     private boolean presence;
 
+
     public Cadet(String name, String surname, String rankID) {
         this.name = name;
         this.surname = surname;

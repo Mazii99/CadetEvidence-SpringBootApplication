@@ -41,9 +41,10 @@ public class RankService {
     }
 
     public List<RankResponse> getAll() {
+
         return rankRepository.findAll()
                 .stream()
-                .map(Rank -> new RankResponse(Rank.getId(), Rank.getTitle()))
+                .map(rank -> rankMapper.map(rank))
                 .toList();
     }
 

@@ -57,6 +57,12 @@ public class CadetService {
         cadetRepository.save(cadet);
         return new CadetResponse(cadet.getId(), rankRepository.findById(cadet.getRankID()).orElseThrow(EntityNotFound::new), cadet.getName(), cadet.getSurname(), cadet.getEmail(), cadet.isPresence());
     }
+    public List<CadetResponse>getAllByPresenceEquals(){
+        return cadetRepository.findAllByPresenceEquals(true)
+                .stream()
+                .map(cadet -> new CadetResponse(cadet.getId(),  rankRepository.findById(cadet.getRankID()).orElseThrow(), cadet.getName(), cadet.getSurname(), cadet.getEmail(), cadet.isPresence()))
+                .toList();
+    }
     public CadetResponse update(String id) throws EntityNotFound {
         Cadet cadet = cadetRepository.findById(id).orElseThrow(EntityNotFound::new);
         if (cadet.getRankID().equals("63bdb2d18a4e590d340ae26b")) {

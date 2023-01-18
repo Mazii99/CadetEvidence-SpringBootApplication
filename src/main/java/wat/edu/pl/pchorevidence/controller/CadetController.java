@@ -46,6 +46,11 @@ public class CadetController {
 
     }
 
+    @GetMapping("present")
+    public ResponseEntity<List<CadetResponse>> getPresentCadet() {
+        List<CadetResponse> cadetOptional = cadetService.getAllByPresenceEquals();
+        return new ResponseEntity<>(cadetOptional, HttpStatus.OK);
+    }
     @GetMapping("{id}/surname")
     public ResponseEntity<String> getCadetSurnameById(@PathVariable String id) {
         try {
@@ -56,7 +61,6 @@ public class CadetController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     @PostMapping()
     public ResponseEntity<String> createCadet(@RequestBody CadetRequest cadetRequest) {
             return new ResponseEntity<>(cadetService.save(cadetRequest).getId(), HttpStatus.CREATED);
